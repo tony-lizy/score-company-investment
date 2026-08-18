@@ -101,6 +101,8 @@ Use “2” for genuinely mixed or sector-average evidence. Do not start at 4 an
 
 Avoid repeated narrative penalties. If one fact affects more than one subfactor, explain the distinct causal channel. If the same fact also triggers a position cap, state separately that the rating measures expected economics while the cap limits portfolio damage from a tail event.
 
+For every active `risk_flag`, populate `risk_flag_rationales` in the scorecard with two non-empty fields: `rating_role` and `cap_role`. The script must reject a flagged scorecard that does not separate these roles.
+
 ### 7. Calculate deterministically
 
 Create a scorecard JSON matching the schema printed by:
@@ -152,6 +154,7 @@ Always expose:
 - model version;
 - cutoff and price;
 - all raw 0–4 ratings;
+- unrounded company-quality, current-opportunity, and combined scores;
 - normalized owner-earnings definition;
 - valuation assumptions;
 - triggered caps;
