@@ -62,6 +62,7 @@ Include all four opportunity subfactors.
 Display the three mechanically derived ratings to two decimals and `thesis_evidence_confidence` as an integer. Do not replace continuous derived ratings with lower integer bands.
 
 Show the unrounded combined score for band selection and the displayed score rounded to one decimal.
+Also show the unrounded company-quality and current-opportunity scores so the combined score can be reconstructed without rounding ambiguity.
 
 ## 6. Position calculation
 
@@ -77,6 +78,7 @@ Show the unrounded combined score for band selection and the displayed score rou
 Explain why the lowest constraint binds. State what evidence or price change would move the company into the next higher or lower band.
 
 When a fact affects both a raw rating and a structural cap, identify the two separate roles. Do not describe the cap as an additional score deduction.
+For every active risk flag, reproduce its `rating_role` and `cap_role` from the scorecard.
 
 ## 7. Falsification and monitoring
 
