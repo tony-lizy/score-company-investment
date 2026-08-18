@@ -6,6 +6,7 @@ from __future__ import annotations
 import copy
 import importlib.util
 import unittest
+from decimal import Decimal
 from pathlib import Path
 
 
@@ -79,12 +80,24 @@ class ScoreCompanyRegressionTests(unittest.TestCase):
 
     def test_pdd_regression_sample(self) -> None:
         result = score_company.calculate(self.pdd_scorecard(), self.config)
-        self.assertEqual(result["model_version"], "1.1.0")
+        self.assertEqual(result["model_version"], "2.0.0")
         self.assertEqual(result["quality_score"], 6.2)
         self.assertEqual(result["opportunity_score"], 7.9)
-        self.assertEqual(result["combined_score"], 6.9)
-        self.assertEqual(result["score_based_ceiling_pct"], 0.0)
-        self.assertEqual(result["risk_adjusted_ceiling_pct"], 0.0)
+        self.assertEqual(result["combined_score"], 7.0)
+        self.assertEqual(result["score_based_ceiling_pct"], 5.0)
+        self.assertEqual(result["risk_adjusted_ceiling_pct"], 5.0)
+        self.assertEqual(
+            set(result["binding_constraints"]),
+            {"score_band", "risk_flag:cash_access_or_structure_risk"},
+        )
+
+    def test_position_band_boundaries(self) -> None:
+        bands = self.config["position_bands"]
+        self.assertEqual(score_company.score_band(Decimal("6.9999"), bands), Decimal("0.0"))
+        self.assertEqual(score_company.score_band(Decimal("7.0"), bands), Decimal("5.0"))
+        self.assertEqual(score_company.score_band(Decimal("7.5"), bands), Decimal("8.0"))
+        self.assertEqual(score_company.score_band(Decimal("8.0"), bands), Decimal("10.0"))
+        self.assertEqual(score_company.score_band(Decimal("9.5"), bands), Decimal("20.0"))
 
 
 if __name__ == "__main__":
