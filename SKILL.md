@@ -5,7 +5,7 @@ description: Evaluate a public company as an investment with a reproducible 0–
 
 # Score Company Investment
 
-Use a fixed, evidence-first scorecard. Separate company quality from the opportunity created by the current price. Treat the final score as price- and date-specific, not as a permanent company label.
+Use a fixed, evidence-first scorecard. Give company quality and the opportunity created by the current price equal 50% weights. Treat the final score as price- and date-specific, not as a permanent company label. A known weakness reduces the relevant raw rating, but it does not automatically make an otherwise attractive investment uninvestable; reserve hard caps for evidence, solvency, ownership, and genuine permanent-loss risks.
 
 Resolve `SKILL_DIR` to the absolute directory containing this `SKILL.md`. Treat every bundled path below as relative to `SKILL_DIR`, regardless of the current working directory.
 
@@ -99,6 +99,8 @@ Score the eleven quality subfactors and `thesis_evidence_confidence` as integers
 
 Use “2” for genuinely mixed or sector-average evidence. Do not start at 4 and subtract narratively. Missing evidence is not neutral evidence: mark it missing and reduce evidence confidence.
 
+Avoid repeated narrative penalties. If one fact affects more than one subfactor, explain the distinct causal channel. If the same fact also triggers a position cap, state separately that the rating measures expected economics while the cap limits portfolio damage from a tail event.
+
 ### 7. Calculate deterministically
 
 Create a scorecard JSON matching the schema printed by:
@@ -136,6 +138,8 @@ Treat the script’s percentage as an upper bound, not an instruction to fill im
 4. any stricter user-defined portfolio constraint set before the analysis.
 
 Without the user’s current correlated exposures, report only the standalone and risk-adjusted ceilings. Do not call that a final personalized allocation.
+
+Use the fixed score curve: below 7.0 receives 0%; 7.0 starts at 5%; 7.5 receives 8%; 8.0 receives 10%; 8.5 receives 12%; 9.0 receives 15%; 9.25 receives 18%; and only 9.5 or above can reach 20%. Use the unrounded score for band selection.
 
 Build positions in tranches. Re-underwrite before crossing 10%, 15%, or 18%; price decline alone is not evidence that the thesis improved.
 
