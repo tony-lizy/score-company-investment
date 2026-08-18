@@ -1,5 +1,5 @@
 {
-  "model_version": "2.0.0",
+  "model_version": "2.0.1",
   "rating_min": 0,
   "rating_max": 4,
   "round_score_decimals": 1,
