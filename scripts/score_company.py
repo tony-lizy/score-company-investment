@@ -48,6 +48,7 @@ TEMPLATE: dict[str, Any] = {
     },
     "evidence_confidence": "high",
     "risk_flags": [],
+    "risk_flag_rationales": {},
     "portfolio": {
         "current_correlated_exposure_excluding_company_pct": None,
         "correlated_exposure_limit_pct": None,
@@ -234,6 +235,29 @@ def calculate(scorecard: dict[str, Any], config: dict[str, Any]) -> dict[str, An
     if unknown_flags:
         raise ScorecardError(f"Unknown risk_flags: {unknown_flags}")
 
+    risk_flag_rationales = scorecard.get("risk_flag_rationales", {})
+    if not isinstance(risk_flag_rationales, dict):
+        raise ScorecardError("risk_flag_rationales must be an object")
+    require_exact_keys(
+        risk_flag_rationales,
+        {flag: None for flag in risk_flags},
+        "risk_flag_rationales",
+    )
+    for flag, rationale in risk_flag_rationales.items():
+        if not isinstance(rationale, dict):
+            raise ScorecardError(f"risk_flag_rationales.{flag} must be an object")
+        require_exact_keys(
+            rationale,
+            {"rating_role": None, "cap_role": None},
+            f"risk_flag_rationales.{flag}",
+        )
+        for role in ("rating_role", "cap_role"):
+            value = rationale[role]
+            if not isinstance(value, str) or not value.strip():
+                raise ScorecardError(
+                    f"risk_flag_rationales.{flag}.{role} must be a non-empty string"
+                )
+
     constraints: list[tuple[str, Decimal]] = [
         ("score_band", score_ceiling),
         (f"evidence:{evidence}", decimal(evidence_caps[evidence])),
@@ -308,10 +332,13 @@ def calculate(scorecard: dict[str, Any], config: dict[str, Any]) -> dict[str, An
         "model_version": config["model_version"],
         "metadata": scorecard.get("metadata", {}),
         "quality_score": rounded(quality_score),
+        "quality_score_unrounded": str(quality_score.normalize()),
         "opportunity_score": rounded(opportunity_score),
+        "opportunity_score_unrounded": str(opportunity_score.normalize()),
         "combined_score": rounded(combined_score),
         "combined_score_unrounded": str(combined_score.normalize()),
         "quality_ratings": quality,
+        "risk_flag_rationales": risk_flag_rationales,
         "derived_opportunity_ratings": {
             key: float(value.quantize(rating_quantum, rounding=ROUND_HALF_UP))
             for key, value in opportunity.items()
