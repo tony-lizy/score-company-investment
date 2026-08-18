@@ -1,0 +1,99 @@
+{
+  "model_version": "1.1.0",
+  "rating_min": 0,
+  "rating_max": 4,
+  "round_score_decimals": 1,
+  "quality_weight_in_total": 0.6,
+  "opportunity_weight_in_total": 0.4,
+  "quality_weights": {
+    "incremental_returns": 0.10,
+    "pricing_power_customer_value": 0.08,
+    "competitive_durability": 0.07,
+    "demand_resilience": 0.08,
+    "concentration_regulation_disruption": 0.07,
+    "growth_runway": 0.10,
+    "reinvestment_optionality": 0.10,
+    "cash_conversion_accounting": 0.10,
+    "balance_sheet_obligations": 0.10,
+    "alignment_disclosure": 0.10,
+    "capital_allocation_record": 0.10
+  },
+  "opportunity_weights": {
+    "five_year_expected_return": 0.40,
+    "margin_of_safety": 0.25,
+    "bear_case_downside": 0.20,
+    "thesis_evidence_confidence": 0.15
+  },
+  "opportunity_metric_rules": {
+    "five_year_expected_return": {
+      "input_key": "five_year_expected_return_pct",
+      "method": "linear_anchors",
+      "anchors": [
+        {"value": -1.0, "rating": 0.0},
+        {"value": 3.0, "rating": 1.0},
+        {"value": 7.0, "rating": 2.0},
+        {"value": 11.0, "rating": 3.0},
+        {"value": 15.0, "rating": 4.0}
+      ]
+    },
+    "margin_of_safety": {
+      "input_key": "price_as_pct_of_base_value",
+      "method": "linear_anchors",
+      "anchors": [
+        {"value": 70.0, "rating": 4.0},
+        {"value": 85.0, "rating": 3.0},
+        {"value": 100.0, "rating": 2.0},
+        {"value": 120.0, "rating": 1.0},
+        {"value": 140.0, "rating": 0.0}
+      ]
+    },
+    "bear_case_downside": {
+      "input_key": "bear_case_downside_pct",
+      "method": "linear_anchors",
+      "anchors": [
+        {"value": 10.0, "rating": 4.0},
+        {"value": 25.0, "rating": 3.0},
+        {"value": 40.0, "rating": 2.0},
+        {"value": 60.0, "rating": 1.0},
+        {"value": 80.0, "rating": 0.0}
+      ]
+    }
+  },
+  "position_bands": [
+    {"min_score": 0.0, "max_score_exclusive": 7.5, "ceiling_pct": 0.0},
+    {"min_score": 7.5, "max_score_exclusive": 8.0, "ceiling_pct": 5.0},
+    {"min_score": 8.0, "max_score_exclusive": 8.5, "ceiling_pct": 8.0},
+    {"min_score": 8.5, "max_score_exclusive": 9.0, "ceiling_pct": 12.0},
+    {"min_score": 9.0, "max_score_exclusive": 9.25, "ceiling_pct": 15.0},
+    {"min_score": 9.25, "max_score_exclusive": 9.5, "ceiling_pct": 18.0},
+    {"min_score": 9.5, "max_score_exclusive": 10.01, "ceiling_pct": 20.0}
+  ],
+  "evidence_confidence_caps_pct": {
+    "insufficient": 0.0,
+    "medium": 10.0,
+    "high": 20.0
+  },
+  "risk_flag_caps_pct": {
+    "binary_permanent_loss": 5.0,
+    "cash_access_or_structure_risk": 5.0,
+    "high_financial_leverage": 5.0,
+    "unproven_turnaround": 8.0,
+    "cyclical_normalization_uncertain": 10.0
+  },
+  "rating_gate_caps": [
+    {"rating_key": "alignment_disclosure", "at_or_below": 1, "ceiling_pct": 5.0},
+    {"rating_key": "balance_sheet_obligations", "at_or_below": 1, "ceiling_pct": 5.0},
+    {"rating_key": "capital_allocation_record", "at_or_below": 1, "ceiling_pct": 8.0}
+  ],
+  "maximum_single_company_pct": 20.0,
+  "default_correlated_exposure_limit_pct": 30.0,
+  "maximum_score_for_20pct_requires": {
+    "combined_score_at_least": 9.5,
+    "quality_score_at_least": 9.0,
+    "opportunity_score_at_least": 9.0,
+    "minimum_alignment_disclosure_rating": 3,
+    "minimum_balance_sheet_rating": 3,
+    "evidence_confidence": "high",
+    "no_risk_flags": true
+  }
+}
