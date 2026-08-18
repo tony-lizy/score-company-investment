@@ -3,8 +3,8 @@
 ## Contents
 
 1. Rating discipline
-2. Company quality: 60% of total
-3. Current opportunity: 40% of total
+2. Company quality: 50% of total
+3. Current opportunity: 50% of total
 4. Evidence confidence
 5. Cross-check rules
 
@@ -24,7 +24,7 @@ Use sector-appropriate economics, but do not grade on a curve so generous that e
 
 Do not use stock-price performance, market popularity, analyst recommendations, or the investor’s existing position as evidence of company quality.
 
-## 2. Company quality: 60% of total
+## 2. Company quality: 50% of total
 
 ### 2.1 Incremental returns — 10%
 
@@ -170,7 +170,7 @@ Evaluate at least five years and preferably ten.
 
 Do not reward dividends or buybacks in isolation. Measure whether each action increased per-share intrinsic value after dilution, taxes, and opportunity cost.
 
-## 3. Current opportunity: 40% of total
+## 3. Current opportunity: 50% of total
 
 ### 3.1 Five-year probability-weighted annualized return — 40%
 
@@ -253,3 +253,4 @@ Before calculation:
 5. Check whether bear/base/bull terminal assumptions follow the selected valuation type.
 6. Check that every 4 rating contains multi-period or through-cycle evidence.
 7. Check that no fact is counted in more than one rating without explaining the different causal role.
+8. Distinguish score effects from position caps: a raw rating measures expected economics; a structural cap limits portfolio damage from a tail event. Do not repeat the same narrative penalty without this distinction.
