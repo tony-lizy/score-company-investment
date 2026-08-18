@@ -54,6 +54,12 @@ class ScoreCompanyRegressionTests(unittest.TestCase):
             "opportunity_ratings": {"thesis_evidence_confidence": 2},
             "evidence_confidence": "medium",
             "risk_flags": ["cash_access_or_structure_risk"],
+            "risk_flag_rationales": {
+                "cash_access_or_structure_risk": {
+                    "rating_role": "Reduces expected access to cash and confidence in distributable economics.",
+                    "cap_role": "Limits portfolio damage if contractual access to structurally held assets fails.",
+                }
+            },
             "portfolio": {
                 "current_correlated_exposure_excluding_company_pct": None,
                 "correlated_exposure_limit_pct": None,
@@ -80,7 +86,7 @@ class ScoreCompanyRegressionTests(unittest.TestCase):
 
     def test_pdd_regression_sample(self) -> None:
         result = score_company.calculate(self.pdd_scorecard(), self.config)
-        self.assertEqual(result["model_version"], "2.0.0")
+        self.assertEqual(result["model_version"], "2.0.1")
         self.assertEqual(result["quality_score"], 6.2)
         self.assertEqual(result["opportunity_score"], 7.9)
         self.assertEqual(result["combined_score"], 7.0)
@@ -90,6 +96,12 @@ class ScoreCompanyRegressionTests(unittest.TestCase):
             set(result["binding_constraints"]),
             {"score_band", "risk_flag:cash_access_or_structure_risk"},
         )
+
+    def test_risk_flag_requires_separate_rating_and_cap_roles(self) -> None:
+        scorecard = self.pdd_scorecard()
+        scorecard["risk_flag_rationales"] = {}
+        with self.assertRaises(score_company.ScorecardError):
+            score_company.calculate(scorecard, self.config)
 
     def test_position_band_boundaries(self) -> None:
         bands = self.config["position_bands"]
