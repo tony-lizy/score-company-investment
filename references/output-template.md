@@ -18,8 +18,8 @@ Use this structure for every full analysis. A short user request may receive a c
 State:
 
 - combined investment score out of 10;
-- company-quality score;
-- current-opportunity score;
+- company-quality score and its 50% contribution;
+- current-opportunity score and its 50% contribution;
 - score-based standalone ceiling;
 - risk-adjusted ceiling and binding constraint;
 - one-sentence investment classification.
@@ -75,6 +75,8 @@ Show the unrounded combined score for band selection and the displayed score rou
 | Final permitted ceiling | |
 
 Explain why the lowest constraint binds. State what evidence or price change would move the company into the next higher or lower band.
+
+When a fact affects both a raw rating and a structural cap, identify the two separate roles. Do not describe the cap as an additional score deduction.
 
 ## 7. Falsification and monitoring
 
