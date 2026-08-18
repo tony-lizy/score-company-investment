@@ -26,25 +26,28 @@ The model’s hard ceiling for one company is 20%. It represents an exceptional 
 
 | Combined score | Standalone ceiling |
 |---:|---:|
-| Below 7.50 | 0% |
-| 7.50–7.99 | 5% |
-| 8.00–8.49 | 8% |
+| Below 7.00 | 0% |
+| 7.00–7.49 | 5% |
+| 7.50–7.99 | 8% |
+| 8.00–8.49 | 10% |
 | 8.50–8.99 | 12% |
 | 9.00–9.24 | 15% |
 | 9.25–9.49 | 18% |
 | 9.50–10.00 | 20% |
 
-Use the unrounded combined score for band selection and display the score rounded to one decimal. This prevents a displayed 7.5 created by rounding from incorrectly crossing the 7.50 threshold.
+Use the unrounded combined score for band selection and display the score rounded to one decimal. This prevents a displayed 7.0 created by rounding from incorrectly crossing the 7.00 threshold.
 
 ## 3. Why the curve is nonlinear
 
-- Below 7.5, the combination of expected return, business quality, and downside is not strong enough to justify company-specific risk. A watchlist has zero capital cost.
-- At 7.5, 5% is large enough to matter but small enough to survive a major analytical error.
-- From 8.0 to 9.0, weights rise gradually because better evidence and asymmetric valuation reduce, but do not eliminate, uncertainty.
+- Below 7.0, the combination of expected return, business quality, and downside is not strong enough to justify company-specific risk. A watchlist has zero capital cost.
+- At 7.0, 5% is a meaningful initial allocation while limiting the cost of a major analytical error. A known but bounded weakness may be acceptable when the price compensates for it; structural caps still apply.
+- At 7.5, the ceiling rises to 8%, but the company or opportunity can still contain material uncertainty.
+- At 8.0, a company earns a 10% ceiling only when business quality and current opportunity jointly support a full-sized position.
+- From 8.5 to 9.0, weights rise gradually because better evidence and asymmetric valuation reduce, but do not eliminate, uncertainty.
 - Above 9.0, each additional point requires both high quality and high opportunity; position growth slows as concentration risk becomes dominant.
 - At 20%, a 50% permanent loss costs 10% of the entire portfolio. No score can eliminate fraud, regulation, technological discontinuity, key-person events, war, or analytical error. This irreducible risk is why the model stops at 20%.
 
-The curve is deliberately not linear. A move from 7 to 8 is mainly the transition from “not investable” to “investable”; a move from 9 to 10 does not justify doubling an already concentrated position.
+The curve is deliberately not linear. A move from 7 to 8 is mainly the transition from a starter position to a normal full position; a move from 9 to 10 does not justify doubling an already concentrated position.
 
 ## 4. Hard gates and structural caps
 
@@ -69,6 +72,8 @@ Apply every relevant cap; the lowest one binds.
 | Uncertain cyclical normalization | 10% |
 
 Trigger a flag only with evidence and explain it. Do not omit a flag merely because applying it would reduce an existing position.
+
+Do not use a risk flag as a second narrative score deduction. The related raw rating estimates the probability and economic impact of the weakness; the flag limits portfolio damage if the tail event occurs. Apply both only when those two roles are stated separately.
 
 ### Rating gates
 
